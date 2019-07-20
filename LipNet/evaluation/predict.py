@@ -1,5 +1,5 @@
 from lipnet.lipreading.videos import Video
-from lipnet.lipreading.visualization import show_video_subtitle
+#from lipnet.lipreading.visualization import show_video_subtitle
 from lipnet.core.decoders import Decoder
 from lipnet.lipreading.helpers import labels_to_text
 from lipnet.utils.spell import Spell
@@ -76,8 +76,8 @@ if __name__ == '__main__':
     else:
         video, result = None, ""
 
-    if video is not None:
-        show_video_subtitle(video.face, result)
+    #if video is not None:
+        #show_video_subtitle(video.face, result)
 
     stripe = "-" * len(result)
     print ("")
