@@ -19,7 +19,7 @@ FACE_PREDICTOR_PATH = os.path.join(CURRENT_PATH,'..','common','predictors','shap
 
 PREDICT_GREEDY      = False
 PREDICT_BEAM_WIDTH  = 200
-PREDICT_DICTIONARY  = os.path.join(CURRENT_PATH,'..','common','dictionaries','grid.txt')
+PREDICT_DICTIONARY  = os.path.join("/app/.heroku/src/lipnet/evaluation",'..','common','dictionaries','grid.txt')
 
 start = time.time()
 lipnet = LipNet(img_c=3, img_w=100, img_h=50, frames_n=75,
