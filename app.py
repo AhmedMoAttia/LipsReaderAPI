@@ -1,6 +1,9 @@
 from flask import Flask, request, Response
 from LipNet.evaluation.predict import predict
 
+import matplotlib
+matplotlib.use('Agg')
+
 app = Flask(__name__)
 
 
