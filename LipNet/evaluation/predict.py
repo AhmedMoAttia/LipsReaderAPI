@@ -9,6 +9,7 @@ from keras import backend as K
 import numpy as np
 import sys
 import os
+import time
 
 np.random.seed(55)
 
@@ -20,6 +21,7 @@ PREDICT_GREEDY      = False
 PREDICT_BEAM_WIDTH  = 200
 PREDICT_DICTIONARY  = os.path.join(CURRENT_PATH,'..','common','dictionaries','grid.txt')
 
+start = time.time()
 lipnet = LipNet(img_c=3, img_w=100, img_h=50, frames_n=75,
                 absolute_max_string_len=32, output_size=28)
 
@@ -27,6 +29,7 @@ adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
 
 lipnet.model.compile(loss={'ctc': lambda y_true, y_pred: y_pred}, optimizer=adam)
 lipnet.model.load_weights(CURRENT_PATH + "/models/overlapped-weights368.h5")
+print("lipnet loading ", time.time() - start)
 
 spell = Spell(path=PREDICT_DICTIONARY)
 decoder = Decoder(greedy=PREDICT_GREEDY, beam_width=PREDICT_BEAM_WIDTH,
@@ -61,7 +64,10 @@ def predict(weight_path, video_path, absolute_max_string_len=32, output_size=28)
     X_data       = np.array([video.data]).astype(np.float32) / 255
     input_length = np.array([len(video.data)])
 
+    start = time.time()
     y_pred         = lipnet.predict(X_data)
+    print("lipnet prediction ", time.time() - start)
+
     result         = decoder.decode(y_pred, input_length)[0]
 
     return (video, result)
